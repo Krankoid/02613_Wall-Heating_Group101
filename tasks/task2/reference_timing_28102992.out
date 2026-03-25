@@ -1,0 +1,62 @@
+N = 10 buildings
+Elapsed: 120.05 s
+Per building: 12.01 s
+Estimated total (4571 buildings): 15.2 hours
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28102992: <mini_ref_time> in cluster <dcc> Done
+
+Job <mini_ref_time> was submitted from host <n-62-27-20> by user <s204749> in cluster <dcc> at Wed Mar 25 14:12:16 2026
+Job was executed on host(s) <n-62-31-5>, in queue <hpc>, as user <s204749> in cluster <dcc> at Wed Mar 25 14:12:16 2026
+</zhome/40/7/155683> was used as the home directory.
+</zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
+Started at Wed Mar 25 14:12:16 2026
+Terminated at Wed Mar 25 14:14:18 2026
+Results reported at Wed Mar 25 14:14:18 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J mini_ref_time
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -W 00:30
+#BSUB -R "select[model==XeonGold6126]"
+#BSUB -R "rusage[mem=4GB]"
+#BSUB -o mini_ref_time_%J.out
+#BSUB -e mini_ref_time_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+python -u tasks/task2/time_reference.py 10
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   120.56 sec.
+    Max Memory :                                 43 MB
+    Average Memory :                             43.00 MB
+    Total Requested Memory :                     4096.00 MB
+    Delta Memory :                               4053.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   122 sec.
+    Turnaround time :                            122 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <mini_ref_time_28102992.err> for stderr output of this job.
+

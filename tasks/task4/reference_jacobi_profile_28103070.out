@@ -1,0 +1,82 @@
+10000 {'mean_temp': 14.01233878811275, 'std_temp': 6.367431059312565, 'pct_above_18': 30.941014791508444, 'pct_below_15': 55.542295034537624}
+Wrote profile results to profile_jacobi.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 7.69829 s
+File: /zhome/40/7/155683/HPC-mini-project-101/simulate.py
+Function: jacobi at line 15
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    15                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+    16         1       1960.0   1960.0      0.0      u = np.copy(u)
+    17                                           
+    18      3602       3098.5      0.9      0.0      for i in range(max_iter):
+    19                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+    20      3602    4928873.9   1368.4     64.0          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+    21      3602     719446.5    199.7      9.3          u_new_interior = u_new[interior_mask]
+    22      3602    1293463.7    359.1     16.8          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+    23      3602     742896.2    206.2      9.7          u[1:-1, 1:-1][interior_mask] = u_new_interior
+    24                                           
+    25      3602       8547.2      2.4      0.1          if delta < atol:
+    26         1          1.0      1.0      0.0              break
+    27         1          0.3      0.3      0.0      return u
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28103070: <mini_profile_jacobi> in cluster <dcc> Done
+
+Job <mini_profile_jacobi> was submitted from host <n-62-27-20> by user <s204749> in cluster <dcc> at Wed Mar 25 14:44:51 2026
+Job was executed on host(s) <n-62-31-5>, in queue <hpc>, as user <s204749> in cluster <dcc> at Wed Mar 25 14:44:52 2026
+</zhome/40/7/155683> was used as the home directory.
+</zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
+Started at Wed Mar 25 14:44:52 2026
+Terminated at Wed Mar 25 14:45:01 2026
+Results reported at Wed Mar 25 14:45:01 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J mini_profile_jacobi
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -W 00:20
+#BSUB -R "select[model==XeonGold6126]"
+#BSUB -R "rusage[mem=4GB]"
+#BSUB -o mini_profile_jacobi_%J.out
+#BSUB -e mini_profile_jacobi_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+kernprof -l -v tasks/task4/profile_jacobi.py
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   9.12 sec.
+    Max Memory :                                 1 MB
+    Average Memory :                             0.67 MB
+    Total Requested Memory :                     4096.00 MB
+    Delta Memory :                               4095.00 MB
+    Max Swap :                                   -
+    Max Processes :                              1
+    Max Threads :                                1
+    Run time :                                   9 sec.
+    Turnaround time :                            10 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <mini_profile_jacobi_28103070.err> for stderr output of this job.
+
