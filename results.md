@@ -10,11 +10,11 @@ Results and analysis for the Wall Heating mini-project. Tasks 1-4 are complete; 
 
 **Why this task matters:** Before running any simulations, we need to understand what the input data looks like. The two `.npy` files per building encode the physical setup of the Jacobi solver, knowing what they represent is necessary to correctly implement and later optimize the solver.
 
-**Output:** [`tasks/task1/floorplan_inputs.png`](tasks/task1/floorplan_inputs.png)
+**Output:** [`tasks/task1/fixed_floorplan_inputs.png`](tasks/task1/fixed_floorplan_inputs.png)
 
 **Results:**
 
-![Floorplan inputs](tasks/task1/floorplan_inputs.png)
+![Floorplan inputs](tasks/task1/fixed_floorplan_inputs.png)
 
 **Interpretation:** Each building has two grids. The domain grid shows the fixed boundary conditions: inside walls are set to 25°C (hot), load-bearing walls to 5°C (cold), and room interiors to 0°C (unknown, to be solved). The interior mask is a boolean grid marking exactly which cells should be updated during Jacobi iterations, walls and exterior cells are excluded and remain fixed throughout the simulation.
 
@@ -50,11 +50,11 @@ Hardware: Intel XeonGold6126, 1 core, DTU HPC `hpc` queue.
 
 **Why this task matters:** Visualizing the converged temperature fields confirms the solver is producing physically correct results before any optimization begins. Any future optimized implementation must match these reference outputs.
 
-**Output:** [`tasks/task3/simulation_results.png`](tasks/task3/simulation_results.png)
+**Output:** [`tasks/task3/fixed_simulation_results.png`](tasks/task3/fixed_simulation_results.png)
 
 **Results:**
 
-![Simulation results](tasks/task3/simulation_results.png)
+![Simulation results](tasks/task3/fixed_simulation_results.png)
 
 **Interpretation:** The converged temperature fields show heat diffusing smoothly outward from the hot inside walls (25°C) toward the cold load-bearing walls (5°C). Room interiors settle at intermediate temperatures depending on their geometry and proximity to each wall type. The smooth gradients confirm the Jacobi solver has converged correctly, abrupt jumps or artifacts would indicate a bug.
 
