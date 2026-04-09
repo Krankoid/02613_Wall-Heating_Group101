@@ -8,29 +8,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulate import load_data
 
 LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
+EXCLUDE = {'10000', '10019', '10029', '10334', '10786', '11117'}
 
 with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
-    building_ids = f.read().splitlines()[:4]
+    all_ids = f.read().splitlines()
 
-rows = len(building_ids)
-fig, axes = plt.subplots(rows, 2, figsize=(10, 4 * rows), squeeze=False)
+building_ids = [bid for bid in all_ids if bid not in EXCLUDE][:4]
 
-for row, bid in enumerate(building_ids):
+fig, axes = plt.subplots(2, 4, figsize=(16, 8), constrained_layout=True)
+
+for col, bid in enumerate(building_ids):
     u0, interior_mask = load_data(LOAD_DIR, bid)
 
-    ax = axes[row, 0]
-    im = ax.imshow(u0[1:-1, 1:-1], cmap='inferno', vmin=0, vmax=25)
-    ax.set_title(f'Building {bid}: domain')
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    axes[0, col].set_title(f'Building {bid}')
+    im = axes[0, col].imshow(u0[1:-1, 1:-1], cmap='inferno', vmin=0, vmax=25)
 
-    ax = axes[row, 1]
-    ax.imshow(interior_mask, cmap='gray')
-    ax.set_title(f'Building {bid}: interior mask')
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
+    axes[1, col].imshow(interior_mask, cmap='gray')
 
-fig.tight_layout()
-fig.savefig('floorplan_inputs.png', dpi=150)
-print('Saved floorplan_inputs.png')
+fig.colorbar(im, ax=axes.flatten().tolist(), fraction=0.02, pad=0.04)
+fig.savefig('fixed_floorplan_inputs.png', dpi=150)
+print('Saved fixed_floorplan_inputs.png')
