@@ -145,7 +145,7 @@ The peak memory usage increases from 43 MB in the reference to 96 MB in the JIT 
 
 The function implements the Jacobi method using **Numba JIT**, which makes the Python loops run much faster by compiling them to machine code. In each iteration, the code reads values from `u_old`, computes new values as the average of the four neighboring points, and stores them in `u_new`. It also keeps track of the largest change (`delta`) and stops early if the solution has converged (`delta < atol`). After each iteration, the two arrays are swapped so the next iteration always uses values from the previous step.
 
-Two arrays (`u_old` and `u_new`) are used to make sure the method follows the standard Jacobi update rule. This means we never use already updated values within the same iteration (which would otherwise turn it into Gauss–Seidel). The `interior_mask` makes sure that only valid interior points are updated, while the rest stay fixed.
+Two arrays (`u_old` and `u_new`) are used to make sure the method follows the standard Jacobi update rule. This means we never use already updated values within the same iteration. The `interior_mask` makes sure that only valid interior points are updated, while the rest stay fixed.
 
 The access pattern is made to work well with the CPU cache by looping **row by row**, with the column index `j` in the inner loop. Since NumPy stores arrays in **row-major order**, elements next to each other in a row are also close in memory. This makes accesses like `u_old[i, j-1]`, `u_old[i, j]`, and `u_old[i, j+1]` efficient because the CPU can reuse cached data. Also, by avoiding slicing and temporary arrays inside the loop, the code reduces memory overhead and runs more efficiently.
 
