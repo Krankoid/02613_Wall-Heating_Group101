@@ -122,10 +122,34 @@ Lines 20–23 (the four lines inside the loop body) account for **~99.8%** of to
 ## Task 7 - Numba JIT on CPU
 
 > *"Implement another solution where you rewrite the `jacobi` function using Numba JIT on the CPU.*
->
-> a) Run and time the new solution for a small subset of floorplans. How does the performance compare to the reference?
-> b) Explain your function. How did you ensure your access pattern works well with the CPU cache?
-> c) How long would it now take to process all floorplans?"
+
+**Results:**
+
+| Metric | Value |
+|--------|-------|
+| Buildings timed | 10 |
+| Total elapsed | 19.94 s |
+| Per building | **1.99 s** |
+| Peak memory | 96 MB |
+| Estimated full dataset (4571 buildings, 1 core) | **~2.5 hours** |
+
+Hardware: Intel XeonGold6126, 1 core, DTU HPC `hpc` queue.
+
+**a) Run and time the new solution for a small subset of floorplans. How does the performance compare to the reference?**
+
+The Numba JIT implementation gives a clear performance improvement compared to the reference version. For 10 buildings, the runtime decreases from 120.05 s to 19.94 s, which corresponds to a speedup of roughly 6 times.
+
+**b) Explain your function. How did you ensure your access pattern works well with the CPU cache?**
+
+The function implements the Jacobi method using **Numba JIT**, which makes the Python loops run much faster by compiling them to machine code. In each iteration, the code reads values from `u_old`, computes new values as the average of the four neighboring points, and stores them in `u_new`. It also keeps track of the largest change (`delta`) and stops early if the solution has converged (`delta < atol`). After each iteration, the two arrays are swapped so the next iteration always uses values from the previous step.
+
+Two arrays (`u_old` and `u_new`) are used to make sure the method follows the standard Jacobi update rule. This means we never use already updated values within the same iteration (which would otherwise turn it into Gauss–Seidel). The `interior_mask` makes sure that only valid interior points are updated, while the rest stay fixed.
+
+The access pattern is made to work well with the CPU cache by looping **row by row**, with the column index `j` in the inner loop. Since NumPy stores arrays in **row-major order**, elements next to each other in a row are also close in memory. This makes accesses like `u_old[i, j-1]`, `u_old[i, j]`, and `u_old[i, j+1]` efficient because the CPU can reuse cached data. Also, by avoiding slicing and temporary arrays inside the loop, the code reduces memory overhead and runs more efficiently.
+
+**c) How long would it now take to process all floorplans?"**
+
+Based on the measured runtime of 1.99 seconds per building, processing all 4571 floorplans would take approximately **2.5 hours** using the JIT-optimized implementation.
 
 ---
 
