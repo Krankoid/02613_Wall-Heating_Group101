@@ -139,6 +139,8 @@ Hardware: Intel XeonGold6126, 1 core, DTU HPC `hpc` queue.
 
 The Numba JIT implementation gives a clear performance improvement compared to the reference version. For 10 buildings, the runtime decreases from 120.05 s to 19.94 s, which corresponds to a speedup of roughly 6 times.
 
+The peak memory usage increases from 43 MB in the reference to 96 MB in the JIT version, but it is still relatively low. This increase is acceptable given the significant speedup in computation time, and memory is not a limiting factor for the overall runtime of the method.
+
 **b) Explain your function. How did you ensure your access pattern works well with the CPU cache?**
 
 The function implements the Jacobi method using **Numba JIT**, which makes the Python loops run much faster by compiling them to machine code. In each iteration, the code reads values from `u_old`, computes new values as the average of the four neighboring points, and stores them in `u_new`. It also keeps track of the largest change (`delta`) and stops early if the solution has converged (`delta < atol`). After each iteration, the two arrays are swapped so the next iteration always uses values from the previous step.
