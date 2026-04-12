@@ -1,0 +1,5 @@
+Number of buildings: 4571
+Average mean temperature: 14.694 °C
+Average temperature standard deviation: 6.802 °C
+Buildings with at least 50% area above 18°C: 804
+Buildings with at least 50% area below 15°C: 2471
