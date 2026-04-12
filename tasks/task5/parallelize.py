@@ -35,11 +35,11 @@ if __name__ == '__main__':
 
     # Timing variables
     elapsed_times = np.ndarray([max_procs], dtype=object)  # elapsed times for each process 
-    total_elapsed = []  # total elapsed time for each process count    
+    wall_time = [] # wall time for each process count
 
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
-    MAX_ITER = 1000
-    ABS_TOL = 1e-2
+    MAX_ITER = 20_000
+    ABS_TOL = 1e-4
 
     # Get building IDs
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
@@ -56,6 +56,7 @@ if __name__ == '__main__':
         
         print(f"Using {n_procs} processes for parallel execution of {n_buildings} buildings, with chunksize: {chunk_size}")
 
+        start_wall = perf_counter()
         # Run jacobi iterations in parallel with static scheduling
         with mp.Pool(n_procs) as pool:
             elapsed_times_async = []
@@ -71,11 +72,12 @@ if __name__ == '__main__':
             pool.join()
     
         # Calculate total elapsed time for this process count
-        total_elapsed.append(np.sum(elapsed_times[i], axis=0))
+        wall_time.append(perf_counter() - start_wall)
+        print(f"Finished with {n_procs} processes in {wall_time[-1]:.2f} seconds")
 
     # Print and save results
     print(f"Elapsed times: {elapsed_times}")
-    print(f"Total elapsed time: {total_elapsed}")
+    print(f"Wall times: {wall_time}")
 
     np.save('parallel_times.npy', elapsed_times)
-    np.save('total_parallel_times.npy', total_elapsed)
+    np.save('wall_times.npy', wall_time)

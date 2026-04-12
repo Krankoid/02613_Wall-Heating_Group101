@@ -1,0 +1,124 @@
+No GPU on this node, CUDA module not loaded
+--- Running with 1 processes --- 
+Using 1 processes for parallel execution of 50 buildings, with chunksize: 50
+Finished with 1 processes in 611.96 seconds
+--- Running with 2 processes --- 
+Using 2 processes for parallel execution of 50 buildings, with chunksize: 25
+Finished with 2 processes in 371.09 seconds
+--- Running with 3 processes --- 
+Using 3 processes for parallel execution of 50 buildings, with chunksize: 17
+Finished with 3 processes in 341.94 seconds
+--- Running with 4 processes --- 
+Using 4 processes for parallel execution of 50 buildings, with chunksize: 13
+Finished with 4 processes in 268.18 seconds
+--- Running with 5 processes --- 
+Using 5 processes for parallel execution of 50 buildings, with chunksize: 10
+Finished with 5 processes in 231.86 seconds
+--- Running with 6 processes --- 
+Using 6 processes for parallel execution of 50 buildings, with chunksize: 9
+Finished with 6 processes in 229.99 seconds
+--- Running with 7 processes --- 
+Using 7 processes for parallel execution of 50 buildings, with chunksize: 8
+Finished with 7 processes in 169.11 seconds
+--- Running with 8 processes --- 
+Using 8 processes for parallel execution of 50 buildings, with chunksize: 7
+Finished with 8 processes in 188.33 seconds
+--- Running with 9 processes --- 
+Using 9 processes for parallel execution of 50 buildings, with chunksize: 6
+Finished with 9 processes in 179.58 seconds
+--- Running with 10 processes --- 
+Using 10 processes for parallel execution of 50 buildings, with chunksize: 5
+Finished with 10 processes in 132.75 seconds
+--- Running with 11 processes --- 
+Using 11 processes for parallel execution of 50 buildings, with chunksize: 5
+Finished with 11 processes in 154.78 seconds
+--- Running with 12 processes --- 
+Using 12 processes for parallel execution of 50 buildings, with chunksize: 5
+Finished with 12 processes in 159.94 seconds
+--- Running with 13 processes --- 
+Using 13 processes for parallel execution of 50 buildings, with chunksize: 4
+Finished with 13 processes in 129.85 seconds
+--- Running with 14 processes --- 
+Using 14 processes for parallel execution of 50 buildings, with chunksize: 4
+Finished with 14 processes in 124.73 seconds
+--- Running with 15 processes --- 
+Using 15 processes for parallel execution of 50 buildings, with chunksize: 4
+Finished with 15 processes in 150.72 seconds
+--- Running with 16 processes --- 
+Using 16 processes for parallel execution of 50 buildings, with chunksize: 4
+Finished with 16 processes in 143.98 seconds
+Elapsed times: [list([611.9370020260103]) list([287.4642942221835, 371.0708362380974])
+ list([217.0359143319074, 188.0349058441352, 341.9167138559278])
+ list([141.42319793906063, 152.5393330899533, 113.03630179399624, 268.15233116503805])
+ list([101.25137032102793, 159.95481713698246, 81.4146945939865, 131.3566034589894, 231.83272394398227])
+ list([79.64628141396679, 154.85935397795402, 112.12562636192888, 67.21505692601204, 229.9557915579062, 130.98838694998994])
+ list([103.90467099798843, 138.3396218949929, 136.76877096202224, 72.25959499389865, 137.77183568407781, 169.07359908591025, 62.90031576203182])
+ list([68.95540366298519, 90.0732933820691, 104.32453996897675, 80.89934214297682, 78.02963754697703, 188.29665589914657, 165.96527514094487, 33.09134268807247])
+ list([83.75852584396489, 91.80807579006068, 110.21844672691077, 111.83692773687653, 30.05367121985182, 75.77441222197376, 179.5399081991054, 109.55586503911763, 69.38466341304593])
+ list([82.12470118096098, 42.986620547948405, 105.19533479306847, 95.23888314701617, 71.71212752582505, 38.339462344069034, 65.83016901114024, 113.29860907793045, 132.70362632302567, 110.23714685393497])
+ list([78.10510800802149, 52.19078817800619, 104.30401733494364, 79.66066655796021, 56.36651335004717, 35.365936629939824, 53.281653873156756, 92.02300469391048, 154.7382181340363, 132.39327811892144, 1.976964995265007e-06])
+ list([66.47035847697407, 56.66191429598257, 85.16184370801784, 95.3377238297835, 56.72466300497763, 39.09332270291634, 65.18857970787212, 118.1273230961524, 159.89361843187362, 142.48025206616148, 2.71783210337162e-06, 2.3918692022562027e-06])
+ list([74.5811525171157, 43.47993270796724, 76.20762033108622, 65.44163015997037, 84.95592604181729, 55.84119855705649, 21.155246215872467, 55.31095907907002, 44.297990983119234, 94.96406624699011, 129.79083420801908, 100.96142927114852, 57.06286787800491])
+ list([61.64730151882395, 51.23801594902761, 87.83709910092875, 88.20197857404128, 97.68563868291676, 77.55528453108855, 19.554243873106316, 63.859682553913444, 51.77418286097236, 118.24619144015014, 110.50199576513842, 124.66468601487577, 51.60000594612211, 1.7189886420965195e-06])
+ list([87.87327752285637, 48.923957529943436, 89.30198498093523, 56.885888072894886, 65.5013278091792, 80.53783334209584, 19.810950486920774, 64.72256703604944, 31.454934943001717, 123.86123212915845, 150.66174026881345, 129.5300790509209, 80.43957552919164, 1.8731225281953812e-06, 4.728790372610092e-07])
+ list([66.35743825393729, 46.853675278835, 81.36445337790065, 66.42711667786352, 74.98534861579537, 58.35819312906824, 29.12405072292313, 59.480492908041924, 48.481002480955794, 119.26113108103164, 143.91496470291167, 121.51285782200284, 73.82258337805979, 4.022149369120598e-06, 3.940891474485397e-06, 1.0970979928970337e-06])]
+Wall times: [611.9628967361059, 371.091026048176, 341.93993565184064, 268.17849069903605, 231.86111333384179, 229.9856651269365, 169.1080843328964, 188.32886293786578, 179.579970208928, 132.74956251494586, 154.77765130414627, 159.94188227993436, 129.84663863899186, 124.72739244205877, 150.71980894287117, 143.9774591831956]
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28185118: <parallelize> in cluster <dcc> Done
+
+Job <parallelize> was submitted from host <hpclogin1> by user <s214744> in cluster <dcc> at Fri Apr 10 22:37:17 2026
+Job was executed on host(s) <16*n-62-11-67>, in queue <hpc>, as user <s214744> in cluster <dcc> at Fri Apr 10 22:37:19 2026
+</zhome/7a/4/168521> was used as the home directory.
+</zhome/7a/4/168521/Desktop/HPC - 02613/02613_Wall-Heating_Group101> was used as the working directory.
+Started at Fri Apr 10 22:37:19 2026
+Terminated at Fri Apr 10 23:37:20 2026
+Results reported at Fri Apr 10 23:37:20 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J parallelize
+#BSUB -q hpc
+#BSUB -n 16
+#BSUB -W 24:00
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model==XeonGold6226R]"
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -oo tasks/task5/parallel_times_%J.out
+#BSUB -eo tasks/task5/parallel_times_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+python -u tasks/task5/parallelize.py 16 50
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   13189.03 sec.
+    Max Memory :                                 234 MB
+    Average Memory :                             126.05 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               32534.00 MB
+    Max Swap :                                   -
+    Max Processes :                              20
+    Max Threads :                                24
+    Run time :                                   3601 sec.
+    Turnaround time :                            3603 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <tasks/task5/parallel_times_28185118.err> for stderr output of this job.
+
