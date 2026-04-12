@@ -2,6 +2,7 @@ from os.path import join
 import sys
 import multiprocessing as mp
 from time import perf_counter
+import csv
 
 import numpy as np
 from numba import jit
@@ -44,55 +45,50 @@ def jacobi_jit(u, interior_mask, max_iter, atol=1e-6):
 
     return u_old
 
-
-def apply_jacobi_jit(bids):
-    if isinstance(bids, str):
-        bids = [bids]
-
-    start = perf_counter()
-
-    for bid in bids:
-        u0, interior_mask = load_data(LOAD_DIR, bid)
-        u = jacobi_jit(u0, interior_mask, MAX_ITER, ABS_TOL)
-        _ = summary_stats(u, interior_mask)
-
-    elapsed = perf_counter() - start
-    return elapsed
+def apply_jacobi_jit(bid):
+    u0, interior_mask = load_data(LOAD_DIR, bid)
+    u = jacobi_jit(u0, interior_mask, MAX_ITER, ABS_TOL)
+    stats = summary_stats(u, interior_mask)
+    return bid, stats
 
 
-if __name__ == "__main__":
-    max_procs = int(sys.argv[1]) if len(sys.argv) > 1 else mp.cpu_count()
-    n_buildings = int(sys.argv[2]) if len(sys.argv) > 2 else 10
+if __name__ == '__main__':
 
-    LOAD_DIR = "/dtu/projects/02613_2025/data/modified_swiss_dwellings/"
+    LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
     TOTAL_BUILDINGS = 4571
 
-    with open(join(LOAD_DIR, "building_ids.txt"), "r") as f:
-        building_ids = f.read().splitlines()[:n_buildings]
+    OUTPUT_FILE = "tasks/task12/results.csv"
 
-    n_procs = min(max_procs, len(building_ids))
-    print(f"--- Running with {n_procs} processes ---")
+    n_procs = int(sys.argv[1]) if len(sys.argv) > 1 else mp.cpu_count()
+    N = int(sys.argv[2]) if len(sys.argv) > 2 else 10
 
-    chunk_size = (len(building_ids) + n_procs - 1) // n_procs
-    chunks = []
+    with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
+        building_ids = f.read().splitlines()[:N]
 
-    for i in range(n_procs):
-        start_idx = i * chunk_size
-        end_idx = min(start_idx + chunk_size, len(building_ids))
-        if start_idx < len(building_ids):
-            chunks.append(building_ids[start_idx:end_idx])
+    print(f"--- Running with {n_procs} processes (dynamic scheduling) ---")
 
     start = perf_counter()
+
     with mp.Pool(n_procs) as pool:
-        worker_times = pool.map(apply_jacobi_jit, chunks)
+        results = pool.map(apply_jacobi_jit, building_ids, chunksize=1)
+
     elapsed = perf_counter() - start
 
-    print(f"Worker times: {worker_times}")
-    print(f"Total elapsed: {elapsed:.2f} s")
+    stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
+
+    with open(OUTPUT_FILE, "w", newline="") as f:
+        writer = csv.writer(f)
+
+        # header
+        writer.writerow(["building_id"] + stat_keys)
+
+        # rows
+        for bid, stats in results:
+            writer.writerow([bid] + [stats[k] for k in stat_keys])
     
-    N = n_buildings
+
     sec_per_building = elapsed / N
     estimated_total_hours = sec_per_building * TOTAL_BUILDINGS / 3600
 
