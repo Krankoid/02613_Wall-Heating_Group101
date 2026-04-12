@@ -3,6 +3,7 @@ import sys
 import multiprocessing as mp
 from time import perf_counter
 
+import numpy as np
 from numba import jit
 
 from simulate import load_data, summary_stats
@@ -44,12 +45,16 @@ def jacobi_jit(u, interior_mask, max_iter, atol=1e-6):
     return u_old
 
 
-def process_building_jit(bid):
+def apply_jacobi_jit(bids):
+    if isinstance(bids, str):
+        bids = [bids]
+
     start = perf_counter()
 
-    u0, interior_mask = load_data(LOAD_DIR, bid)
-    u = jacobi_jit(u0, interior_mask, MAX_ITER, ABS_TOL)
-    _ = summary_stats(u, interior_mask)
+    for bid in bids:
+        u0, interior_mask = load_data(LOAD_DIR, bid)
+        u = jacobi_jit(u0, interior_mask, MAX_ITER, ABS_TOL)
+        _ = summary_stats(u, interior_mask)
 
     elapsed = perf_counter() - start
     return elapsed
@@ -68,16 +73,25 @@ if __name__ == "__main__":
         building_ids = f.read().splitlines()[:n_buildings]
 
     n_procs = min(max_procs, len(building_ids))
-    print(f"--- Running with {n_procs} processes (dynamic scheduling) ---")
+    print(f"--- Running with {n_procs} processes ---")
+
+    chunk_size = (len(building_ids) + n_procs - 1) // n_procs
+    chunks = []
+
+    for i in range(n_procs):
+        start_idx = i * chunk_size
+        end_idx = min(start_idx + chunk_size, len(building_ids))
+        if start_idx < len(building_ids):
+            chunks.append(building_ids[start_idx:end_idx])
 
     start = perf_counter()
     with mp.Pool(n_procs) as pool:
-        worker_times = pool.map(process_building_jit, building_ids, chunksize=1)
+        worker_times = pool.map(apply_jacobi_jit, chunks)
     elapsed = perf_counter() - start
 
-    print(f"Building times: {worker_times}")
+    print(f"Worker times: {worker_times}")
     print(f"Total elapsed: {elapsed:.2f} s")
-
+    
     N = n_buildings
     sec_per_building = elapsed / N
     estimated_total_hours = sec_per_building * TOTAL_BUILDINGS / 3600
