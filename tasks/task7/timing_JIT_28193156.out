@@ -1,27 +1,27 @@
 No GPU on this node, CUDA module not loaded
 N = 10 buildings
-Elapsed: 19.94 s
-Per building: 1.99 s
-Estimated total (4571 buildings): 2.5 hours
+Elapsed: 18.75 s
+Per building: 1.88 s
+Estimated total (4571 buildings): 2.4 hours
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28188973: <mini_ref_time> in cluster <dcc> Done
+Subject: Job 28193156: <mini_JIT_time> in cluster <dcc> Done
 
-Job <mini_ref_time> was submitted from host <n-62-30-1> by user <s213935> in cluster <dcc> at Sat Apr 11 16:45:13 2026
-Job was executed on host(s) <n-62-31-4>, in queue <hpc>, as user <s213935> in cluster <dcc> at Sat Apr 11 16:45:13 2026
+Job <mini_JIT_time> was submitted from host <n-62-27-22> by user <s213935> in cluster <dcc> at Sun Apr 12 17:55:06 2026
+Job was executed on host(s) <n-62-31-4>, in queue <hpc>, as user <s213935> in cluster <dcc> at Sun Apr 12 17:55:07 2026
 </zhome/15/6/166811> was used as the home directory.
 </zhome/15/6/166811/Documents/02613_Wall-Heating_Group101> was used as the working directory.
-Started at Sat Apr 11 16:45:13 2026
-Terminated at Sat Apr 11 16:45:38 2026
-Results reported at Sat Apr 11 16:45:38 2026
+Started at Sun Apr 12 17:55:07 2026
+Terminated at Sun Apr 12 17:55:31 2026
+Results reported at Sun Apr 12 17:55:31 2026
 
 Your job looked like:
 
 ------------------------------------------------------------
 # LSBATCH: User input
 #!/bin/bash
-#BSUB -J mini_ref_time
+#BSUB -J mini_JIT_time
 #BSUB -q hpc
 #BSUB -n 1
 #BSUB -W 00:30
@@ -31,7 +31,7 @@ Your job looked like:
 #BSUB -e tasks/task7/timing_JIT_%J.err
 
 source /dtu/projects/02613_2025/conda/conda_init.sh
-conda activate 02613
+conda activate 02613_2026
 
 export PYTHONPATH="$PWD:$PYTHONPATH"
 python -u tasks/task7/timing_JIT.py 10
@@ -42,15 +42,15 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   22.58 sec.
-    Max Memory :                                 96 MB
-    Average Memory :                             96.00 MB
+    CPU time :                                   20.39 sec.
+    Max Memory :                                 85 MB
+    Average Memory :                             85.00 MB
     Total Requested Memory :                     4096.00 MB
-    Delta Memory :                               4000.00 MB
+    Delta Memory :                               4011.00 MB
     Max Swap :                                   -
     Max Processes :                              4
     Max Threads :                                5
-    Run time :                                   25 sec.
+    Run time :                                   24 sec.
     Turnaround time :                            25 sec.
 
 The output (if any) is above this job summary.
@@ -59,5 +59,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <tasks/task7/timing_JIT_28188973.err> for stderr output of this job.
+Read file <tasks/task7/timing_JIT_28193156.err> for stderr output of this job.
 

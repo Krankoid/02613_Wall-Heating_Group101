@@ -53,10 +53,6 @@ def apply_jacobi_jit(bids):
 
     for bid in bids:
         u0, interior_mask = load_data(LOAD_DIR, bid)
-
-        # Dummy compile on first call inside each process
-        _ = jacobi_jit(u0, interior_mask, 1, ABS_TOL)
-
         u = jacobi_jit(u0, interior_mask, MAX_ITER, ABS_TOL)
         _ = summary_stats(u, interior_mask)
 

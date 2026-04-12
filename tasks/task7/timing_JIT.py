@@ -56,10 +56,6 @@ else:
 with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
     building_ids = f.read().splitlines()[:N]
 
-# --- Dummy call to trigger JIT compilation ---
-u0_dummy, mask_dummy = load_data(LOAD_DIR, building_ids[0])
-_ = jacobi_jit(u0_dummy, mask_dummy, 1, ABS_TOL)
-
 start = perf_counter()
 for bid in building_ids:
     u0, interior_mask = load_data(LOAD_DIR, bid)

@@ -137,9 +137,9 @@ Hardware: Intel XeonGold6126, 1 core, DTU HPC `hpc` queue.
 
 **a) Run and time the new solution for a small subset of floorplans. How does the performance compare to the reference?**
 
-The Numba JIT implementation gives a clear performance improvement compared to the reference version. For 10 buildings, the runtime decreases from 120.05 s to 19.94 s, which corresponds to a speedup of roughly 6 times.
+The Numba JIT implementation gives a clear performance improvement compared to the reference version. For 10 buildings, the runtime decreases from 120.05 s to 18.75 s, which corresponds to a speedup of roughly 6 times.
 
-The peak memory usage increases from 43 MB in the reference to 96 MB in the JIT version, but it is still relatively low. This increase is acceptable given the significant speedup in computation time, and memory is not a limiting factor for the overall runtime of the method.
+The peak memory usage increases from 43 MB in the reference to 85 MB in the JIT version, but it is still relatively low. This increase is acceptable given the significant speedup in computation time, and memory is not a limiting factor for the overall runtime of the method.
 
 **b) Explain your function. How did you ensure your access pattern works well with the CPU cache?**
 
@@ -151,7 +151,7 @@ The access pattern is made to work well with the CPU cache by looping **row by r
 
 **c) How long would it now take to process all floorplans?"**
 
-Based on the measured runtime of 1.99 seconds per building, processing all 4571 floorplans would take approximately **2.5 hours** using the JIT-optimized implementation.
+Based on the measured runtime of 1.88 seconds per building, processing all 4571 floorplans would take approximately **2.4 hours** using the JIT-optimized implementation.
 
 ---
 
