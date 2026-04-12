@@ -1,0 +1,67 @@
+No GPU on this node, CUDA module not loaded
+--- Running with 12 processes (dynamic scheduling) ---
+
+N = 120 buildings
+Elapsed: 40.91 s
+Per building: 0.34 s
+Estimated total (4571 buildings): 0.4 hours
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28193313: <mini_JIT_parallel> in cluster <dcc> Done
+
+Job <mini_JIT_parallel> was submitted from host <n-62-9-40> by user <s213935> in cluster <dcc> at Sun Apr 12 19:16:39 2026
+Job was executed on host(s) <12*n-62-31-23>, in queue <hpc>, as user <s213935> in cluster <dcc> at Sun Apr 12 19:16:40 2026
+</zhome/15/6/166811> was used as the home directory.
+</zhome/15/6/166811/Documents/02613_Wall-Heating_Group101> was used as the working directory.
+Started at Sun Apr 12 19:16:40 2026
+Terminated at Sun Apr 12 19:17:23 2026
+Results reported at Sun Apr 12 19:17:23 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J mini_JIT_parallel
+#BSUB -q hpc
+#BSUB -n 12
+#BSUB -W 00:30
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[model==XeonGold6126]"
+#BSUB -R "rusage[mem=150MB]"
+#BSUB -o tasks/task11/timing_JIT_parallel_%J.out
+#BSUB -e tasks/task11/timing_JIT_parallel_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+
+python -u tasks/task11/timing_JIT_parallel.py 12 120
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   455.81 sec.
+    Max Memory :                                 667 MB
+    Average Memory :                             667.00 MB
+    Total Requested Memory :                     1800.00 MB
+    Delta Memory :                               1133.00 MB
+    Max Swap :                                   -
+    Max Processes :                              16
+    Max Threads :                                20
+    Run time :                                   43 sec.
+    Turnaround time :                            44 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <tasks/task11/timing_JIT_parallel_28193313.err> for stderr output of this job.
+

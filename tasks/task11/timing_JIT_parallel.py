@@ -44,7 +44,7 @@ def jacobi_jit(u, interior_mask, max_iter, atol=1e-6):
     return u_old
 
 
-def process_building_jit(bid):
+def apply_jacobi_jit(bid):
     start = perf_counter()
 
     u0, interior_mask = load_data(LOAD_DIR, bid)
@@ -72,11 +72,8 @@ if __name__ == "__main__":
 
     start = perf_counter()
     with mp.Pool(n_procs) as pool:
-        worker_times = pool.map(process_building_jit, building_ids, chunksize=1)
+        pool.map(apply_jacobi_jit, building_ids, chunksize=1)
     elapsed = perf_counter() - start
-
-    print(f"Building times: {worker_times}")
-    print(f"Total elapsed: {elapsed:.2f} s")
 
     N = n_buildings
     sec_per_building = elapsed / N

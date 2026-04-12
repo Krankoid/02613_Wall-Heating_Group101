@@ -1,7 +1,7 @@
 #!/bin/bash
 #BSUB -J mini_JIT_parallel
 #BSUB -q hpc
-#BSUB -n 18
+#BSUB -n 12
 #BSUB -W 00:30
 #BSUB -R "span[hosts=1]"
 #BSUB -R "select[model==XeonGold6126]"
@@ -14,4 +14,4 @@ conda activate 02613_2026
 
 export PYTHONPATH="$PWD:$PYTHONPATH"
 
-python -u tasks/task11/timing_JIT_parallel.py 18 360
+python -u tasks/task11/timing_JIT_parallel.py 12 120
