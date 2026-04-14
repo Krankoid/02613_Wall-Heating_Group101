@@ -10,15 +10,16 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from simulate import load_data, jacobi
 
-# Run static parallel execution of Jacobi method on multiple buildings 
-# and measure wall time and elapsed times for each process count
-# Runs for 1 to max_procs processes and saves results in wall_times.npy and parallel_times.npy
-# --- INPUT: max_procs, n_buildings ---
-# --- OUTPUT: wall_times.npy, parallel_times.npy ---
 
+# Run dynamic parallel execution of Jacobi method on multiple buildings 
+# and measure wall time and elapsed times for each process.
+# --- INPUT: n_procs, n_buildings ---
+# --- OUTPUT: wall_times.npy, parallel_times.npy ---
 
 # Apply Jacobi method to a list of building IDs
 def apply_jacobi(bids):
+
+    print(f"Process : {mp.current_process().pid}, handling building IDs: {bids}")
 
     if(type(bids) == str):
         bids = [bids]  # Convert to list if it's a single string
@@ -36,11 +37,11 @@ def apply_jacobi(bids):
 if __name__ == '__main__':
 
     # Get number of processes and buildings to load from parsed arguments
-    max_procs = int(sys.argv[1]) if len(sys.argv) > 1 else mp.cpu_count() # Defaults to all cores
+    n_procs = int(sys.argv[1]) if len(sys.argv) > 1 else mp.cpu_count() # Defaults to all cores
     n_buildings = int(sys.argv[2]) if len(sys.argv) > 2 else 2 # Defaults to 2 buildings
 
     # Timing variables
-    elapsed_times = np.ndarray([max_procs], dtype=object)  # elapsed times for each process 
+    elapsed_times = np.ndarray([n_procs], dtype=object)  # elapsed times for each process 
     wall_time = [] # wall time for each process count
 
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
@@ -51,31 +52,21 @@ if __name__ == '__main__':
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
         building_ids = f.read().splitlines()[:n_buildings]
 
-    for i in range(1, max_procs + 1):
-        
-        print(f"--- Running with {i} processes --- ")
-
-        n_procs = i
-
-        # Calculate chunk size for even distribution
-        chunk_size = (len(building_ids) + n_procs - 1) // n_procs  
-        
-        print(f"Using {n_procs} processes for parallel execution of {n_buildings} buildings, with chunksize: {chunk_size}")
+        print(f"Using {n_procs} processes for dynamic parallel execution of {n_buildings} buildings")
 
         start_wall = perf_counter()
-        # Run jacobi iterations in parallel with static scheduling
+        # Run jacobi iterations in parallel with dynamic scheduling
         with mp.Pool(n_procs) as pool:
             elapsed_times_async = []
-            for i in range(n_procs):
-                start_idx = i * chunk_size
-                end_idx = min(start_idx + chunk_size, len(building_ids))
-                return_time = pool.apply_async(apply_jacobi, args=(building_ids[start_idx:end_idx],))
-                elapsed_times_async.append(return_time)
+            # Fully parallelize by assigning each building to a separate process
+            # This will force each process to handle one building at a time
+            return_time = [pool.apply_async(apply_jacobi, args=([buildings])) for buildings in building_ids]
+            elapsed_times_async.append(return_time)
 
             # Collect results
-            elapsed_times[i]= [rt.get() for rt in elapsed_times_async]
             pool.close()
             pool.join()
+            elapsed_times = [rt.get() for sublist in elapsed_times_async for rt in sublist]
     
         # Calculate total elapsed time for this process count
         wall_time.append(perf_counter() - start_wall)
