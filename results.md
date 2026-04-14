@@ -91,11 +91,17 @@ Summary stats for the profiled building: mean 14.01°C, std 6.37, 30.9% above 18
 
 Lines 20–23 (the four lines inside the loop body) account for **~99.8%** of total runtime. The loop control, copy, and convergence check branch are negligible.
 
-- **Line 20 - neighbor averaging (64%):** This single line creates four large array slices plus a result array every iteration- Roughly 5 temporary 514×514 float64 arrays (~10 MB) allocated and then discarded 3602 times. This is a pure memory bandwidth problem: the arithmetic is trivial but the data movement dominates.
+- **Line 20 - neighbor averaging (64%):** This single line reads four slices of `u` and creates up to five temporary arrays per iteration. To understand why it is slow, we apply the **strides** concept from the week 4 lecture. NumPy stores arrays in row-major (C) order — all elements of a row are laid out consecutively in memory before the next row begins. The strides of `u` (a 514×514 float64 array) are **(4112, 8) bytes**: moving to the next element in the same row costs 8 bytes; moving to the next row costs 514 × 8 = 4112 bytes. As the lecture stated, the most cache-efficient direction is the one with the smallest stride.
 
-- **Lines 21-23 - masked indexing (35.8% combined):** Boolean mask indexing (`u_new[interior_mask]`, `u[...][interior_mask] = ...`) causes scattered memory reads and writes with no spatial locality, which is expensive for the CPU cache.
+  This creates an asymmetry between the four neighbor slices:
+  - **Left/right neighbors** (`u[1:-1, :-2]`, `u[1:-1, 2:]`): come from the same row as the point being updated. Adjacent elements are 8 bytes apart. A single cache line load (64 bytes) brings in 8 useful values at once — cache-efficient.
+  - **Top/bottom neighbors** (`u[:-2, 1:-1]`, `u[2:, 1:-1]`): come from the row above or below. The CPU must jump 4112 bytes to reach the neighbour, loading a fresh cache line for every row transition — cache-inefficient.
 
-- **Conclusion:** The bottleneck is memory traffic, not arithmetic. This directly motivates the next optimization steps: reducing temporary arrays (Numba JIT with explicit loops), parallelizing across buildings (multiprocessing), or moving to GPU where memory bandwidth is much higher (CuPy, CUDA).
+  On top of this, Python evaluates the expression step by step (left to right), creating a separate intermediate array for each addition. Each intermediate is about 512 × 512 × 8 = 2 MB, and roughly five are created every iteration — around 10 MB of fresh memory written each time through the loop. The CPU's L1 cache is 32 KB and L2 is 1 MB, so none of this fits. Data must be re-fetched from L3 cache or main memory for every operation, rather than being reused from what was already loaded. Over 3602 iterations the total amount of data moved is enormous, even though the arithmetic (additions and a multiplication) is trivially fast. This is a **memory bandwidth bottleneck**: the CPU is not the slow part — waiting for data to arrive is.
+
+- **Lines 21-23 - masked indexing (35.8% combined):** Boolean mask indexing (`u_new[interior_mask]`, `u[...][interior_mask] = ...`) reads and writes scattered memory locations with no spatial locality, which is expensive for the CPU cache.
+
+- **Conclusion:** The bottleneck is memory traffic, not arithmetic. This motivates the approaches in later tasks: Tasks 5 and 6 parallelize across buildings so the memory traffic is spread over multiple cores, Task 7 rewrites the function with Numba JIT to eliminate the temporary arrays entirely, and Task 8 moves the computation to the GPU where memory bandwidth is far higher.
 
 ---
 
