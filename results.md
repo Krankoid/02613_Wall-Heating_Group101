@@ -108,6 +108,17 @@ Lines 20–23 (the four lines inside the loop body) account for **~99.8%** of to
 > c) What is your theoretical maximum speed-up according to Amdahl's law? How much of that did you achieve? How many cores did that take?
 > d) How long would you estimate it would take to process all floorplans using your fastest parallel solution?"
 
+**Results:**
+ Output : 
+     wall_times.npy : |611.9628967361059, 371.091026048176, 341.93993565184064, 268.17849069903605, 231.86111333384179, 229.9856651269365, 169.1080843328964, 188.32886293786578, 179.579970208928, 132.74956251494586, 154.77765130414627, 159.94188227993436, 129.84663863899186, 124.72739244205877, 150.71980894287117, 143.9774591831956|
+
+ |Metric  | Value |
+ |--------|-------|
+ | Buildings timed | 50 |
+ | Total elapsed | 144s |
+ | Per building | **2.88 s** |
+ | Peak memory | 234 MB |
+ | Estimated full dataset (4571 buildings, 16 cores) | **~2.17 hours** |
 ---
 
 ## Task 6 - Dynamic scheduling
@@ -116,6 +127,17 @@ Lines 20–23 (the four lines inside the loop body) account for **~99.8%** of to
 >
 > a) Did it get faster? By how much?
 > b) Did the speed-up improve or worsen?"
+
+
+ |Metric  | Value |
+ |--------|-------|
+ | Buildings timed | 50 |
+ | Total elapsed | 72.5 s |
+ | Per building avg. | **1.45 s** |
+ | Peak memory | 267 MB |
+ | Estimated full dataset (4571 buildings, 16 cores) | **~1.84 hours** |
+
+ This gives a speedup of 16.67 and a theoretical fastest computation of 0.93 hours.
 
 ---
 
