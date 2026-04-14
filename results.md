@@ -128,10 +128,10 @@ Lines 20–23 (the four lines inside the loop body) account for **~99.8%** of to
 | Metric | Value |
 |--------|-------|
 | Buildings timed | 10 |
-| Total elapsed | 19.94 s |
-| Per building | **1.99 s** |
-| Peak memory | 96 MB |
-| Estimated full dataset (4571 buildings, 1 core) | **~2.5 hours** |
+| Total elapsed | 18.75 s |
+| Per building | **1.88 s** |
+| Peak memory | 85 MB |
+| Estimated full dataset (4571 buildings, 1 core) | **~2.4 hours** |
 
 Hardware: Intel XeonGold6126, 1 core, DTU HPC `hpc` queue.
 
