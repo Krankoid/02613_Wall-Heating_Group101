@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 y = np.load('wall_times.npy')
 x = np.arange(1, len(y) + 1)
 ax = plt.subplot(111)
-ax.plot(x,y[1]/y, marker='o', 
+ax.plot(x,y[0]/y, marker='o', 
          label='Parallel Execution Time')
 ax.set_xlabel('Number of Processes')
 ax.set_ylabel('Speedup')
