@@ -1,0 +1,16 @@
+#!/bin/bash
+#BSUB -J cupy_jacobi_opt
+#BSUB -q c02613
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -W 00:30
+#BSUB -o tasks/task10/cupy_jacobi_opt_%J.out
+#BSUB -e tasks/task10/cupy_jacobi_opt_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+python -u tasks/task10/simulate_cupy_optimized.py 10

@@ -1,0 +1,63 @@
+N = 10 buildings
+Elapsed: 19.39 s
+Per building: 1.94 s
+Estimated total (4571 buildings): 2.5 hours
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28307546: <cupy_jacobi> in cluster <dcc> Done
+
+Job <cupy_jacobi> was submitted from host <n-62-30-3> by user <s204749> in cluster <dcc> at Mon Apr 27 19:23:46 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Mon Apr 27 19:23:49 2026
+</zhome/40/7/155683> was used as the home directory.
+</zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
+Started at Mon Apr 27 19:23:49 2026
+Terminated at Mon Apr 27 19:24:11 2026
+Results reported at Mon Apr 27 19:24:11 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J cupy_jacobi
+#BSUB -q c02613
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -W 00:30
+#BSUB -o tasks/task9/cupy_jacobi_%J.out
+#BSUB -e tasks/task9/cupy_jacobi_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+python -u tasks/task9/simulate_cupy.py 10
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   20.14 sec.
+    Max Memory :                                 126 MB
+    Average Memory :                             126.00 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               32642.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   22 sec.
+    Turnaround time :                            25 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <tasks/task9/cupy_jacobi_28307546.err> for stderr output of this job.
+

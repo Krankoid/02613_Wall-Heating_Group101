@@ -1,0 +1,63 @@
+N = 10 buildings
+Elapsed: 10.17 s
+Per building: 1.02 s
+Estimated total (4571 buildings): 1.3 hours
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28307547: <cupy_jacobi_opt> in cluster <dcc> Done
+
+Job <cupy_jacobi_opt> was submitted from host <n-62-30-3> by user <s204749> in cluster <dcc> at Mon Apr 27 19:23:47 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Mon Apr 27 19:24:19 2026
+</zhome/40/7/155683> was used as the home directory.
+</zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
+Started at Mon Apr 27 19:24:19 2026
+Terminated at Mon Apr 27 19:24:32 2026
+Results reported at Mon Apr 27 19:24:32 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J cupy_jacobi_opt
+#BSUB -q c02613
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -W 00:30
+#BSUB -o tasks/task10/cupy_jacobi_opt_%J.out
+#BSUB -e tasks/task10/cupy_jacobi_opt_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613_2026
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+python -u tasks/task10/simulate_cupy_optimized.py 10
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   11.17 sec.
+    Max Memory :                                 126 MB
+    Average Memory :                             126.00 MB
+    Total Requested Memory :                     32768.00 MB
+    Delta Memory :                               32642.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   13 sec.
+    Turnaround time :                            45 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <tasks/task10/cupy_jacobi_opt_28307547.err> for stderr output of this job.
+
