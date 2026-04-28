@@ -8,7 +8,7 @@ labels = [
     'Naive CuPy\n(Task 9, GPU)',
     'Optimized CuPy\n(Task 10, GPU)',
 ]
-times = [12.01, 1.88, 1.52, 1.78, 0.94]
+times = [12.01, 1.88, 1.52, 2.45, 1.15]
 colors = ['#d9534f', '#f0ad4e', '#5bc0de', '#5bc0de', '#5cb85c']
 
 x = np.arange(len(labels))

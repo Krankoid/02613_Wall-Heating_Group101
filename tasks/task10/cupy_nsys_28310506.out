@@ -1,33 +1,33 @@
 N = 2 buildings
-Elapsed: 5.29 s
-Per building: 2.64 s
-Estimated total (4571 buildings): 3.4 hours
-Generating '/tmp/nsys-report-2297.qdstrm'
-[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [========================100%] cupy_naive.nsys-rep
+Elapsed: 5.65 s
+Per building: 2.83 s
+Estimated total (4571 buildings): 3.6 hours
+Generating '/tmp/nsys-report-b284.qdstrm'
+[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [========================100%] cupy_naive.nsys-rep
 Generated:
     /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_naive.qdstrm
     /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_naive.nsys-rep
 N = 2 buildings
-Elapsed: 2.99 s
-Per building: 1.50 s
+Elapsed: 3.07 s
+Per building: 1.53 s
 Estimated total (4571 buildings): 1.9 hours
-Generating '/tmp/nsys-report-0279.qdstrm'
-[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [========================100%] cupy_opt.nsys-rep
+Generating '/tmp/nsys-report-d7b5.qdstrm'
+[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [========================100%] cupy_opt.nsys-rep
 Generated:
     /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_opt.qdstrm
     /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_opt.nsys-rep
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28307548: <cupy_nsys> in cluster <dcc> Done
+Subject: Job 28310506: <cupy_nsys> in cluster <dcc> Done
 
-Job <cupy_nsys> was submitted from host <n-62-30-3> by user <s204749> in cluster <dcc> at Mon Apr 27 19:23:47 2026
-Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Mon Apr 27 19:24:50 2026
+Job <cupy_nsys> was submitted from host <n-62-30-7> by user <s204749> in cluster <dcc> at Tue Apr 28 10:31:13 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Tue Apr 28 10:31:35 2026
 </zhome/40/7/155683> was used as the home directory.
 </zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
-Started at Mon Apr 27 19:24:50 2026
-Terminated at Mon Apr 27 19:25:10 2026
-Results reported at Mon Apr 27 19:25:10 2026
+Started at Tue Apr 28 10:31:35 2026
+Terminated at Tue Apr 28 10:31:57 2026
+Results reported at Tue Apr 28 10:31:57 2026
 
 Your job looked like:
 
@@ -68,16 +68,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   18.00 sec.
-    Max Memory :                                 84 MB
-    Average Memory :                             84.00 MB
+    CPU time :                                   19.00 sec.
+    Max Memory :                                 129 MB
+    Average Memory :                             129.00 MB
     Total Requested Memory :                     32768.00 MB
-    Delta Memory :                               32684.00 MB
+    Delta Memory :                               32639.00 MB
     Max Swap :                                   -
-    Max Processes :                              8
-    Max Threads :                                25
-    Run time :                                   20 sec.
-    Turnaround time :                            83 sec.
+    Max Processes :                              5
+    Max Threads :                                21
+    Run time :                                   22 sec.
+    Turnaround time :                            44 sec.
 
 The output (if any) is above this job summary.
 
@@ -85,5 +85,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <tasks/task10/cupy_nsys_28307548.err> for stderr output of this job.
+Read file <tasks/task10/cupy_nsys_28310506.err> for stderr output of this job.
 

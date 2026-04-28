@@ -1,19 +1,19 @@
 N = 10 buildings
-Elapsed: 19.39 s
-Per building: 1.94 s
-Estimated total (4571 buildings): 2.5 hours
+Elapsed: 24.47 s
+Per building: 2.45 s
+Estimated total (4571 buildings): 3.1 hours
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28307546: <cupy_jacobi> in cluster <dcc> Done
+Subject: Job 28310347: <cupy_jacobi> in cluster <dcc> Done
 
-Job <cupy_jacobi> was submitted from host <n-62-30-3> by user <s204749> in cluster <dcc> at Mon Apr 27 19:23:46 2026
-Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Mon Apr 27 19:23:49 2026
+Job <cupy_jacobi> was submitted from host <n-62-30-7> by user <s204749> in cluster <dcc> at Tue Apr 28 10:11:43 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Tue Apr 28 10:11:44 2026
 </zhome/40/7/155683> was used as the home directory.
 </zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
-Started at Mon Apr 27 19:23:49 2026
-Terminated at Mon Apr 27 19:24:11 2026
-Results reported at Mon Apr 27 19:24:11 2026
+Started at Tue Apr 28 10:11:44 2026
+Terminated at Tue Apr 28 10:12:12 2026
+Results reported at Tue Apr 28 10:12:12 2026
 
 Your job looked like:
 
@@ -42,16 +42,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   20.14 sec.
-    Max Memory :                                 126 MB
-    Average Memory :                             126.00 MB
+    CPU time :                                   24.39 sec.
+    Max Memory :                                 123 MB
+    Average Memory :                             82.33 MB
     Total Requested Memory :                     32768.00 MB
-    Delta Memory :                               32642.00 MB
+    Delta Memory :                               32645.00 MB
     Max Swap :                                   -
     Max Processes :                              4
     Max Threads :                                10
-    Run time :                                   22 sec.
-    Turnaround time :                            25 sec.
+    Run time :                                   28 sec.
+    Turnaround time :                            29 sec.
 
 The output (if any) is above this job summary.
 
@@ -59,5 +59,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <tasks/task9/cupy_jacobi_28307546.err> for stderr output of this job.
+Read file <tasks/task9/cupy_jacobi_28310347.err> for stderr output of this job.
 
