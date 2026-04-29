@@ -14,15 +14,16 @@ conda activate 02613_2026
 
 export PYTHONPATH="$PWD:$PYTHONPATH"
 
-# Profile the naive CuPy solution (task 9). 2 buildings is enough to see the
-# pattern and keeps the .nsys-rep file small.
+# Profile the naive CuPy solution (task 9). N=10 buildings gives nsys enough
+# samples for the boolean-mask kernels (cupy_scan_naive, cupy_getitem_mask)
+# to surface in the gpukernsum top entries.
 nsys profile -o tasks/task10/cupy_naive --force-overwrite true \
-    python -u tasks/task9/simulate_cupy.py 2
+    python -u tasks/task9/simulate_cupy.py 10
 
 nsys stats tasks/task10/cupy_naive.nsys-rep > tasks/task10/cupy_naive_stats.txt
 
 # Profile the optimized CuPy solution (task 10) so we can confirm the fix.
 nsys profile -o tasks/task10/cupy_opt --force-overwrite true \
-    python -u tasks/task10/simulate_cupy_optimized.py 2
+    python -u tasks/task10/simulate_cupy_optimized.py 10
 
 nsys stats tasks/task10/cupy_opt.nsys-rep > tasks/task10/cupy_opt_stats.txt

@@ -1,89 +1,0 @@
-N = 2 buildings
-Elapsed: 5.65 s
-Per building: 2.83 s
-Estimated total (4571 buildings): 3.6 hours
-Generating '/tmp/nsys-report-b284.qdstrm'
-[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [0%                          ] cupy_naive.nsys-rep[1/1] [========================100%] cupy_naive.nsys-rep
-Generated:
-    /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_naive.qdstrm
-    /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_naive.nsys-rep
-N = 2 buildings
-Elapsed: 3.07 s
-Per building: 1.53 s
-Estimated total (4571 buildings): 1.9 hours
-Generating '/tmp/nsys-report-d7b5.qdstrm'
-[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [0%                          ] cupy_opt.nsys-rep[1/1] [========================100%] cupy_opt.nsys-rep
-Generated:
-    /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_opt.qdstrm
-    /zhome/40/7/155683/HPC-mini-project-101/tasks/task10/cupy_opt.nsys-rep
-
-------------------------------------------------------------
-Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28310506: <cupy_nsys> in cluster <dcc> Done
-
-Job <cupy_nsys> was submitted from host <n-62-30-7> by user <s204749> in cluster <dcc> at Tue Apr 28 10:31:13 2026
-Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s204749> in cluster <dcc> at Tue Apr 28 10:31:35 2026
-</zhome/40/7/155683> was used as the home directory.
-</zhome/40/7/155683/HPC-mini-project-101> was used as the working directory.
-Started at Tue Apr 28 10:31:35 2026
-Terminated at Tue Apr 28 10:31:57 2026
-Results reported at Tue Apr 28 10:31:57 2026
-
-Your job looked like:
-
-------------------------------------------------------------
-# LSBATCH: User input
-#!/bin/bash
-#BSUB -J cupy_nsys
-#BSUB -q c02613
-#BSUB -n 4
-#BSUB -R "span[hosts=1]"
-#BSUB -R "rusage[mem=8GB]"
-#BSUB -gpu "num=1:mode=exclusive_process"
-#BSUB -W 00:30
-#BSUB -o tasks/task10/cupy_nsys_%J.out
-#BSUB -e tasks/task10/cupy_nsys_%J.err
-
-source /dtu/projects/02613_2025/conda/conda_init.sh
-conda activate 02613_2026
-
-export PYTHONPATH="$PWD:$PYTHONPATH"
-
-# Profile the naive CuPy solution (task 9). 2 buildings is enough to see the
-# pattern and keeps the .nsys-rep file small.
-nsys profile -o tasks/task10/cupy_naive --force-overwrite true \
-    python -u tasks/task9/simulate_cupy.py 2
-
-nsys stats tasks/task10/cupy_naive.nsys-rep > tasks/task10/cupy_naive_stats.txt
-
-# Profile the optimized CuPy solution (task 10) so we can confirm the fix.
-nsys profile -o tasks/task10/cupy_opt --force-overwrite true \
-    python -u tasks/task10/simulate_cupy_optimized.py 2
-
-nsys stats tasks/task10/cupy_opt.nsys-rep > tasks/task10/cupy_opt_stats.txt
-
-------------------------------------------------------------
-
-Successfully completed.
-
-Resource usage summary:
-
-    CPU time :                                   19.00 sec.
-    Max Memory :                                 129 MB
-    Average Memory :                             129.00 MB
-    Total Requested Memory :                     32768.00 MB
-    Delta Memory :                               32639.00 MB
-    Max Swap :                                   -
-    Max Processes :                              5
-    Max Threads :                                21
-    Run time :                                   22 sec.
-    Turnaround time :                            44 sec.
-
-The output (if any) is above this job summary.
-
-
-
-PS:
-
-Read file <tasks/task10/cupy_nsys_28310506.err> for stderr output of this job.
-
